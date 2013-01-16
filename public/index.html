@@ -1,0 +1,47 @@
+<html>
+<head>
+	<title>Login</title>
+	 <script src="http://code.jquery.com/jquery-latest.js"></script>
+	</head>
+<body>
+	<div id="signin">
+<a href="/auth/twitter">	<img src="https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png"/></a>
+<a href="/auth/facebook">Facebook-login</a>
+		</div>
+		<div id="siggnedin" style="display:none">
+		<div id="welcome"></div>
+		<div id="signout"><a href="/auth/twitter">Logout</a></div>
+		</div>
+</body>
+<script type="text/javascript">
+function setCookie(c_name,value,exdays)
+{
+var exdate=new Date();
+exdate.setDate(exdate.getDate() + exdays);
+var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+document.cookie=c_name + "=" + c_value;
+}
+function getCookie(c_name)
+{
+var i,x,y,ARRcookies=document.cookie.split(";");
+for (i=0;i<ARRcookies.length;i++)
+{
+  x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+  y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+  x=x.replace(/^\s+|\s+$/g,"");
+  if (x==c_name)
+    {
+    return unescape(y);
+    }
+  }
+}
+console.log(getCookie('user'));
+if(getCookie('user'))
+{
+$("#signin").hide();
+$("#siggnedin").show();
+var html="<h2>Hi,  "+getCookie('user')+"</h2>";
+$("#welcome").html(html);	
+}
+</script>
+</html>
