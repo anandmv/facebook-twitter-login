@@ -1,6 +1,9 @@
+//Library File
 var express = require('express'),
  everyauth = require('everyauth'),
  settings = require('./settings.js').settings;
+ 
+ //variables used by everyauth lib
 var usersById = {};
 var nextUserId = 0;
 var usersByFbId = {};
@@ -10,20 +13,23 @@ everyauth.everymodule
   .findUserById( function (id, callback) {
     callback(null, usersById[id]);
   });
+  
+ //add user details to variables
 function addUser (source, sourceUser) {
   var user;
   if (arguments.length === 1) { // password-based
     user = sourceUser = source;
     user.id = ++nextUserId;
     return usersById[nextUserId] = user;
-  } else { // non-password-based
+  } 
+  else { // non-password-based
     user = usersById[++nextUserId] = {id: nextUserId};
     user[source] = sourceUser;
   }
   return user;
 }
 
-
+//everyauth facebook 
 everyauth
   .facebook
     .appId(settings.facebook_appId)
@@ -34,7 +40,7 @@ everyauth
     })
     .redirectPath('/');
 
-
+//everyauth twitter
 everyauth
     .twitter
     .consumerKey(settings.twitter_consumerKey)
@@ -45,6 +51,8 @@ everyauth
     })
     .redirectPath('/');
 
+
+//Changing express routes to match everyauth
 	var app = express();
 	app.use(express.static('public'));
 	 app.configure(function() {
@@ -56,7 +64,9 @@ everyauth
 	  app.use(everyauth.middleware());
 	  app.use(app.router);
 	});
+//set the html folder
 app.use(express.static('public'));
+//Set routes
 app.get('/', function(req, res){
 		if(name!="")
 		{
@@ -64,6 +74,7 @@ app.get('/', function(req, res){
 		}
   	  res.redirect('index.html');
 });
+//setting routes
 app.get('/logout',function(req,res){
 		res.setHeader("Set-Cookie", ["user=''"]);
       req.logout()
