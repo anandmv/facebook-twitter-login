@@ -5,12 +5,12 @@ var settings = {};
 settings.port = 9000;
 
 // facebook config
-settings.facebook_appId = "524309734253840";
-settings.facebook_appSecret = "2de317e5da167625bd4cd21c4ee65540";
+settings.facebook_appId = "ADD FACEBOOK APP ID";
+settings.facebook_appSecret = "ADD FACEBOOK APP SECRECT";
 
 //twitter config
-settings.twitter_consumerKey = "x6nLWYu7LfAwBODrTnrsfw";
-settings.twitter_consumerSecret = "Q8dYgLkHJR6FOI5R0IsAWpLAeFvvFKNYoQXGnNBM";
+settings.twitter_consumerKey = "ADD TWITTER CONSUMER KEY";
+settings.twitter_consumerSecret = "ADD TWITTER CONSUMER SECRET";
 
 // export the settings object
 exports.settings = settings;
